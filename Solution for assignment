@@ -1,0 +1,69 @@
+// Declare variables to store temperature and voltage readings
+float temp;
+float vout;
+float vout1;
+
+// Setup function, runs once when the sketch starts
+void setup() {
+  // Initialize serial communication at a baud rate of 9600
+  Serial.begin(9600);
+  // Set the built-in LED pin as an output
+  pinMode(LED_BUILTIN, OUTPUT);
+  // Set pin A0 as an input
+  pinMode(A0, INPUT);
+}
+
+// Custom delay function for approximately 250 milliseconds delay 
+//The loop method actually depends on the system we are using , value of i in loop has to be changed by comparitive method as of delay required
+//This code has approximate delay and works good in Tinkercad
+void wait250ms() {
+  // Loop for an approximate delay of 250ms
+  for (int i = 0; i < 2000; i++) {
+    // Nested loop to add delay
+    for (int j = 0; j < 85; j++) {
+      // Do nothing, just loop
+    }
+  }
+}
+
+// Custom delay function for approximately 500 milliseconds delay
+void wait500ms() {
+  // Loop for an approximate delay of 500ms
+  for (int i = 0; i < 4000; i++) {
+    // Nested loop to add delay
+    for (int j = 0; j < 170; j++) {
+      // Do nothing, just loop
+    }
+  }
+}
+
+// Loop function, runs repeatedly after setup
+void loop() {
+  // Read analog voltage from pin A0
+  vout = analogRead(A0);
+  // Convert analog voltage to millivolts
+  vout1 = (vout / 1023) * 5000;
+  // Convert millivolts to temperature in Celsius
+  temp = (vout1 - 500) / 10;
+  // Check if temperature is less than 30°C
+  if (temp < 30) {
+    // Turn on the built-in LED
+    digitalWrite(LED_BUILTIN, HIGH);
+    // Call wait250ms function for 250 milliseconds delay
+    wait250ms();
+    // Turn off the built-in LED
+    digitalWrite(LED_BUILTIN, LOW);
+    // Call wait250ms function for 250 milliseconds delay
+    wait250ms();
+  } else {
+    // If temperature is 30°C or higher
+    // Turn on the built-in LED
+    digitalWrite(LED_BUILTIN, HIGH);
+    // Call wait500ms function for 500 milliseconds delay
+    wait500ms();
+    // Turn off the built-in LED
+    digitalWrite(LED_BUILTIN, LOW);
+    // Call wait500ms function for 500 milliseconds delay
+    wait500ms();
+  }
+}
